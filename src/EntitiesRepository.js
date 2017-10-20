@@ -1,5 +1,5 @@
 const getBot = (id) => {
-    return entities.filter(e => e.id === id)[0] || null;        
+    return entities.filter(e => e.id === id)[0] || null;
 };
 
 const dist = (id1, id2) => {

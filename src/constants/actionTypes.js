@@ -1,0 +1,2 @@
+export const INIT_BOTS_START = 'INIT_BOTS_START';
+export const INIT_BOTS_DONE = 'INIT_BOTS_DONE';
