@@ -1,5 +1,5 @@
 import store from '..'
-import { INIT_BOTS_START, INIT_BOTS_DONE } from '../../constants/actionTypes'
+import { INIT_BOTS_START, INIT_BOTS_DONE, HANDLE_ERROR } from '../../constants/actionTypes'
 import EntitiesRepo from '../../EntitiesRepository'
 
 //TODO see https://github.com/reactjs/redux/blob/master/examples/async/src/actions/index.js
@@ -8,7 +8,7 @@ import EntitiesRepo from '../../EntitiesRepository'
 export const fetchEntitiesIfNeeded = () => {
   EntitiesRepo.getAll()
     .then(fetchEntitiesDone)
-    .catch(console.error);
+    .catch(handleError);
   return { type: INIT_BOTS_START };
 }
 
@@ -21,4 +21,8 @@ export const fetchEntitiesIfNeeded = () => {
 
 function fetchEntitiesDone(bots) {
   store.dispatch({ type: INIT_BOTS_DONE, payload: bots });
+}
+
+function handleError(err) {
+  store.dispatch({ type: HANDLE_ERROR, payload: err });
 }

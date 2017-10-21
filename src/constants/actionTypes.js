@@ -1,2 +1,3 @@
-export const INIT_BOTS_START = 'INIT_BOTS_START';
-export const INIT_BOTS_DONE = 'INIT_BOTS_DONE';
+export const INIT_BOTS_START = 'INIT_BOTS_START'
+export const INIT_BOTS_DONE = 'INIT_BOTS_DONE'
+export const HANDLE_ERROR = 'HANDLE_ERROR'
