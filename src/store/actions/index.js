@@ -1,6 +1,10 @@
 import store from '..'
-import { INIT_BOTS_START, INIT_BOTS_DONE, HANDLE_ERROR } from '../../constants/actionTypes'
+import { INIT_BOTS_START, INIT_BOTS_DONE } from '../../constants/actionTypes'
+import { FETCH_BOT_START, FETCH_BOT_DONE } from '../../constants/actionTypes'
+import { HANDLE_ERROR } from '../../constants/actionTypes'
 import EntitiesRepo from '../../EntitiesRepository'
+
+const { dispatch } = store;
 
 //TODO see https://github.com/reactjs/redux/blob/master/examples/async/src/actions/index.js
 // for a clean way to handle async loading or resources without duplicating calls
@@ -12,6 +16,13 @@ export const fetchEntitiesIfNeeded = () => {
   return { type: INIT_BOTS_START };
 }
 
+export const fetchEntityIfNeeded = (botId) => {
+  EntitiesRepo.get(botId)
+    .then(fetchEntityDone)
+    .catch(handleError);
+  return { type: FETCH_BOT_START, payload: botId };
+}
+
 // const fetchPosts = reddit => dispatch => {
 //   dispatch(requestPosts(reddit))
 //   return fetch(`https://www.reddit.com/r/${reddit}.json`)
@@ -20,9 +31,13 @@ export const fetchEntitiesIfNeeded = () => {
 // }
 
 function fetchEntitiesDone(bots) {
-  store.dispatch({ type: INIT_BOTS_DONE, payload: bots });
+  dispatch({ type: INIT_BOTS_DONE, payload: bots });
+}
+
+function fetchEntityDone(bot) {
+  dispatch({ type: FETCH_BOT_DONE, payload: bot });
 }
 
 function handleError(err) {
-  store.dispatch({ type: HANDLE_ERROR, payload: err });
+  dispatch({ type: HANDLE_ERROR, payload: err });
 }

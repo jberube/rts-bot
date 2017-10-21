@@ -8,7 +8,7 @@ import './App.css'
 import Menu from './Menu'
 import Home from './Home'
 import Entities from './Entities'
-// import Entity from './Entity'
+import Entity from './Entity'
 
 export default class App extends Component {
   render() {
@@ -21,7 +21,7 @@ export default class App extends Component {
         <Menu />
         <Route path="/home" component={Home} />
         <Route path="/entities" component={Entities} />
-        {/* <Route path="/entity/:id" component={Entity} /> */}
+        <Route path="/entity/:id" component={Entity} />
       </div>
     );
   }
