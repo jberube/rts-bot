@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import createHistory from 'history/createBrowserHistory'
 
 import reducers from './reducers'
@@ -8,7 +9,9 @@ import reducers from './reducers'
 export const history = createHistory();
 
 // Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history);
+const middlewares = [
+  routerMiddleware(history)
+];
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
@@ -17,7 +20,9 @@ export default createStore(
     ...reducers,
     router: routerReducer
   }),
-  applyMiddleware(middleware)
+  composeWithDevTools(
+    applyMiddleware(...middlewares)
+  )
 )
 
 // Now you can dispatch navigation actions from anywhere!
