@@ -6,6 +6,11 @@ import EntitiesRepo from '../../EntitiesRepository'
 
 const { dispatch } = store;
 
+// Generic errors handling
+if (window && typeof window.onerror !== undefined) {
+  window.onerror = err => dispatch({ type: HANDLE_ERROR, payload: err })
+}
+
 //TODO see https://github.com/reactjs/redux/blob/master/examples/async/src/actions/index.js
 // for a clean way to handle async loading or resources without duplicating calls
 
@@ -22,13 +27,6 @@ export const fetchEntityIfNeeded = (botId) => {
     .catch(handleError);
   return { type: FETCH_BOT_START, payload: botId };
 }
-
-// const fetchPosts = reddit => dispatch => {
-//   dispatch(requestPosts(reddit))
-//   return fetch(`https://www.reddit.com/r/${reddit}.json`)
-//     .then(response => response.json())
-//     .then(json => dispatch(receivePosts(reddit, json)))
-// }
 
 function fetchEntitiesDone(bots) {
   dispatch({ type: INIT_BOTS_DONE, payload: bots });
