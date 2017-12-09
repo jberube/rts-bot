@@ -23,13 +23,6 @@ export const fetchEntityIfNeeded = (botId) => {
   return { type: FETCH_BOT_START, payload: botId };
 }
 
-// const fetchPosts = reddit => dispatch => {
-//   dispatch(requestPosts(reddit))
-//   return fetch(`https://www.reddit.com/r/${reddit}.json`)
-//     .then(response => response.json())
-//     .then(json => dispatch(receivePosts(reddit, json)))
-// }
-
 function fetchEntitiesDone(bots) {
   dispatch({ type: INIT_BOTS_DONE, payload: bots });
 }
