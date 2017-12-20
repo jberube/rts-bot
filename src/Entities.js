@@ -1,24 +1,19 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-import EntitiesRepo from './EntitiesRepository';
+import * as Actions from './store/actions'
 
-export class Entities extends Component {
+class Entities extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      bots: null
-    };
-  }
-
-  componentDidMount() {
-    EntitiesRepo.getAll().then(bots => {
-      this.setState({ bots });
-    });
+    props.actions.fetchEntitiesIfNeeded();
   }
 
   render() {
-    const bots = this.state.bots;
+    const { bots } = this.props;
 
     if (bots === null) {
       return (<section className="entities loading">
@@ -26,41 +21,34 @@ export class Entities extends Component {
       </section>);
     }
 
+    if (!bots.length) {
+      return (<section className="entities">Loading...</section>);
+    }
+
     return (<section className="entities">
       <ul>{
-        bots.map(entity => (<li key={ entity.id }><Link to={`/entity/${ entity.id }`}>{ entity.name }</Link></li>))
+        bots.map(entity => (<li key={entity.id}><Link to={`/entity/${entity.id}`}>{entity.name}</Link></li>))
       }</ul>
     </section>);
   }
 }
 
-export class Entity extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bot: null
-    };
-  }
-
-  componentDidMount() {
-    EntitiesRepo.get(this.props.match.params.id).then(bot => {
-      this.setState({ bot });
-    });
-  }
-
-  render() {
-    const bot = this.state.bot;
-
-    if (bot === null) {
-      return (<section className="entity loading">
-        Loading...
-      </section>);
-    }
-
-    return <section className="entity">
-      <p>ID: { bot.id }</p>
-      <p>NAME: { bot.name }</p>
-      <p>LINKS:</p>
-    </section>
-  }
+Entities.propTypes = {
+  bots: PropTypes.array.isRequired,
+  actions: PropTypes.shape({
+    fetchEntitiesIfNeeded: PropTypes.func.isRequired
+  }).isRequired
 };
+
+const mapStateToProps = state => ({
+  bots: state.entities
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(Actions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Entities);
