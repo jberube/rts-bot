@@ -6,6 +6,11 @@ import EntitiesRepo from '../../EntitiesRepository'
 
 const { dispatch } = store;
 
+// Generic errors handling
+if (window && typeof window.onerror !== undefined) {
+  window.onerror = err => dispatch({ type: HANDLE_ERROR, payload: err })
+}
+
 //TODO see https://github.com/reactjs/redux/blob/master/examples/async/src/actions/index.js
 // for a clean way to handle async loading or resources without duplicating calls
 
