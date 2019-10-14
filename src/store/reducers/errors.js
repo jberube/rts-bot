@@ -1,4 +1,4 @@
-import { HANDLE_ERROR } from '../../constants/actionTypes'
+import { HANDLE_ERROR } from '../../constants/actionTypes';
 
 export default function errors(state = [], action) {
   switch (action.type) {

@@ -1,5 +1,5 @@
-export const INIT_BOTS_START = 'INIT_BOTS_START'
-export const INIT_BOTS_DONE = 'INIT_BOTS_DONE'
-export const HANDLE_ERROR = 'HANDLE_ERROR'
-export const FETCH_BOT_START = 'FETCH_BOT_START'
-export const FETCH_BOT_DONE = 'FETCH_BOT_DONE'
+export const INIT_BOTS_START = 'INIT_BOTS_START';
+export const INIT_BOTS_DONE = 'INIT_BOTS_DONE';
+export const HANDLE_ERROR = 'HANDLE_ERROR';
+export const FETCH_BOT_START = 'FETCH_BOT_START';
+export const FETCH_BOT_DONE = 'FETCH_BOT_DONE';

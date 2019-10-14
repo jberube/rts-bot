@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+  ],
+  "settings": {
+    "prettier.jsxBracketSameLine": true,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "es5"
+  }
+}

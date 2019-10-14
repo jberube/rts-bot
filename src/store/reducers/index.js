@@ -3,5 +3,5 @@ import entities from './entities';
 
 export default {
   errors,
-  entities
+  entities,
 };
