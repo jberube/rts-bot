@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 
@@ -13,9 +13,12 @@ export default class App extends Component {
     return (
       <React.Fragment>
         <Menu />
-        <Route path="/home" component={Home} />
-        <Route path="/entities" component={Entities} />
-        <Route path="/entity/:id" component={Entity} />
+        <Switch>
+          <Route path="/home" component={Home} />
+          <Route path="/entities" component={Entities} />
+          <Route path="/entity/:id" component={Entity} />
+          <Route path="*" component={() => <Redirect to="/home" />} />
+        </Switch>
       </React.Fragment>
     );
   }
